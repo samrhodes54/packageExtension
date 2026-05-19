@@ -79,3 +79,12 @@ document.getElementById("goMain").addEventListener("click", () => {
     document.getElementById("goSettings").style.display = "inline";
     document.getElementById("goMain").style.display = "none";
 });
+
+document.getElementById("padding").addEventListener("input", (e) => {
+    const val = parseFloat(e.target.value);
+
+    if (isNaN(val) || val < 0) return;
+
+    padding = val;
+    chrome.storage.local.set({ padding });
+});

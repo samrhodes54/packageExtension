@@ -1,7 +1,7 @@
-const PADDING = 0.0 // inches
+let padding = 0.0;
 let boxes = [];
 
-chrome.storage.local.get(["boxes"], (res) => {
+chrome.storage.local.get(["boxes", "padding"], (res) => {
     boxes = res.boxes || [
         { l: 14, w: 8, h: 8 },
         { l: 13, w: 13, h: 10 },
@@ -29,15 +29,19 @@ chrome.storage.local.get(["boxes"], (res) => {
         { l: 20, w: 16, h: 14 }
     ];
 
+    padding = res.padding ?? 0.0;
+
+    document.getElementById("padding").value = padding;
+
     boxes.sort((a, b) => (a.l * a.w * a.h) - (b.l * b.w * b.h));
     renderBoxes();
 });
 
 function findBestBox(item, boxes) {
     const itemDims = [
-        item.l + PADDING,
-        item.w + PADDING,
-        item.h + PADDING
+        item.l + padding,
+        item.w + padding,
+        item.h + padding
     ].sort((a, b) => a - b);
 
     return boxes
