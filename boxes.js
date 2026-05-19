@@ -1,4 +1,4 @@
-let padding = 0.0;
+let padding;
 let boxes = [];
 
 chrome.storage.local.get(["boxes", "padding"], (res) => {
