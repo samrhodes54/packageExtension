@@ -1,20 +1,27 @@
+const sizeOutput = document.getElementById("size");
+const boxList = document.getElementById("boxList");
+
+// FIND BOX
 document.getElementById("find").addEventListener("click", () => {
   const l = parseFloat(document.getElementById("length").value);
   const w = parseFloat(document.getElementById("width").value);
   const h = parseFloat(document.getElementById("height").value);
 
+  if (isNaN(l) || isNaN(w) || isNaN(h)) return;
+
   const bestBox = findBestBox({ l, w, h }, boxes);
 
-//   document.getElementById("result").textContent =
-//     bestBox ? bestBox.name : "No box fits";
-    document.getElementById("size").textContent =
-    bestBox ? bestBox.l + " x " + bestBox.w + " x " + bestBox.h : "0";
+  sizeOutput.textContent =
+    bestBox ? `${bestBox.l} x ${bestBox.w} x ${bestBox.h}` : "No fit";
 });
 
+// ADD BOX
 document.getElementById("addBox").addEventListener("click", () => {
   const l = parseFloat(document.getElementById("newL").value);
   const w = parseFloat(document.getElementById("newW").value);
   const h = parseFloat(document.getElementById("newH").value);
+
+  if (isNaN(l) || isNaN(w) || isNaN(h)) return;
 
   boxes.push({ l, w, h });
 
@@ -25,28 +32,24 @@ document.getElementById("addBox").addEventListener("click", () => {
   renderBoxes();
 });
 
+// RENDER
 function renderBoxes() {
-  const container = document.getElementById("boxList");
-  container.innerHTML = "";
+  boxList.innerHTML = "";
 
   boxes.forEach((box, index) => {
-    const div = document.createElement("div");
-
-    const text = document.createElement("span");
-    text.textContent = `${box.l} x ${box.w} x ${box.h}`;
+    const row = document.createElement("div");
+    row.textContent = `${box.l} x ${box.w} x ${box.h}`;
 
     const del = document.createElement("button");
-    del.textContent = "Delete";
+    del.textContent = "X";
 
     del.addEventListener("click", () => {
       boxes.splice(index, 1);
       renderBoxes();
     });
 
-    div.appendChild(text);
-    div.appendChild(del);
-
-    container.appendChild(div);
+    row.appendChild(del);
+    boxList.appendChild(row);
   });
 }
 
