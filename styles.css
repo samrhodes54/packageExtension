@@ -1,0 +1,15 @@
+#dimensionRow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#dimensionRow input {
+    width: 50px;
+    padding: 4px;
+    text-align: center;
+}
+
+#dimensionRow span {
+    font-weight: bold;
+}

@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html>
-
+<head>
+    <link rel="stylesheet" href="styles.css">
+</head>
 <body>
     <h2>Box Finder</h2>
 
-    <input id="length" placeholder="Length">
-    <input id="width" placeholder="Width">
-    <input id="height" placeholder="Height">
+    <div id="dimensionRow">
+        <input id="length" placeholder="L">
+        <span>x</span>
+        <input id="width" placeholder="W">
+        <span>x</span>
+        <input id="height" placeholder="H">
+    </div>
 
     <button id="find">Find Box</button>
-
-    <!-- <p id="result">Click Submit to see</p> -->
     <p id="size"></p>
 
     <h3>Boxes</h3>
