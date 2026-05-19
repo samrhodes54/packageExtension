@@ -1,18 +1,40 @@
 const sizeOutput = document.getElementById("size");
 const boxList = document.getElementById("boxList");
 
-// FIND BOX
-document.getElementById("find").addEventListener("click", () => {
+
+function getSortedInput() {
     const l = parseFloat(document.getElementById("length").value);
     const w = parseFloat(document.getElementById("width").value);
     const h = parseFloat(document.getElementById("height").value);
 
-    if (isNaN(l) || isNaN(w) || isNaN(h)) return;
+    if (isNaN(l) || isNaN(w) || isNaN(h)) return null;
 
-    const bestBox = findBestBox({ l, w, h }, boxes);
+    const sorted = [l, w, h].sort((a, b) => b - a); // high → low
 
-    sizeOutput.textContent =
-        bestBox ? `${bestBox.l} x ${bestBox.w} x ${bestBox.h}` : "No fit";
+    document.getElementById("length").value = sorted[0];
+    document.getElementById("width").value = sorted[1];
+    document.getElementById("height").value = sorted[2];
+
+    return { l: sorted[0], w: sorted[1], h: sorted[2] };
+}
+
+// FIND BOX
+document.getElementById("find").addEventListener("click", () => {
+    const item = getSortedInput();
+    if (!item) return;
+
+    const bestBox = findBestBox(item, boxes);
+
+    if (bestBox) {
+        const extraL = (bestBox.l - item.l).toFixed(2);
+        const extraW = (bestBox.w - item.w).toFixed(2);
+        const extraH = (bestBox.h - item.h).toFixed(2);
+
+        sizeOutput.textContent =
+            `${bestBox.l} x ${bestBox.w} x ${bestBox.h} (extra: ${extraL} x ${extraW} x ${extraH})`;
+    } else {
+        sizeOutput.textContent = "No fit";
+    }
 });
 
 // ADD BOX
@@ -92,16 +114,14 @@ document.getElementById("padding").addEventListener("input", (e) => {
     chrome.storage.local.set({ padding });
 });
 
-function submitOnEnter(inputIds, buttonId) {
-    inputIds.forEach(id => {
-        document.getElementById(id).addEventListener("keydown", (e) => {
-            if (e.key === "Enter") {
-                e.preventDefault();
-                document.getElementById(buttonId).click();
-            }
-        });
+["length", "width", "height"].forEach(id => {
+    document.getElementById(id).addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            document.getElementById("find").click();
+        }
     });
-}
+});
 
 submitOnEnter(["length", "width", "height"], "find");
 submitOnEnter(["newL", "newW", "newH"], "addBox");
