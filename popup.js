@@ -35,6 +35,8 @@ document.getElementById("addBox").addEventListener("click", () => {
     document.getElementById("newL").value = "";
     document.getElementById("newW").value = "";
     document.getElementById("newH").value = "";
+
+    document.getElementById("newL").focus();
 });
 
 // RENDER
