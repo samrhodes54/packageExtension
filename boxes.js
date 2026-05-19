@@ -28,6 +28,7 @@ chrome.storage.local.get(["boxes"], (res) => {
   { l: 20, w: 16, h: 14 }
   ];
 
+  boxes.sort((a, b) => (a.l * a.w * a.h) - (b.l * b.w * b.h));
   renderBoxes();
 });
 

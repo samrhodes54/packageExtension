@@ -22,10 +22,13 @@ document.getElementById("addBox").addEventListener("click", () => {
     const h = parseFloat(document.getElementById("newH").value);
 
     if (isNaN(l) || isNaN(w) || isNaN(h)) return;
+    if (l<=0 || w<=0 || h<=0) return;
 
     boxes.push({ l, w, h });
 
     chrome.storage.local.set({ boxes });
+
+    boxes.sort((a, b) => (a.l * a.w * a.h) - (b.l * b.w * b.h));
 
     renderBoxes();
 
