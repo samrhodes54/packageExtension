@@ -1,0 +1,11 @@
+{
+    "manifest_version": 3,
+    "name": "packageExtension",
+    "icons": {
+        "16": "icon.png"        
+    },
+    "version": "1.0.0",
+    "action": {
+        "default_popup": "popup.html"
+    }
+}
