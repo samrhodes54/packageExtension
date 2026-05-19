@@ -68,19 +68,23 @@ function renderBoxes() {
 
     boxes.forEach((box, index) => {
         const row = document.createElement("div");
-        row.textContent = `${box.l} x ${box.w} x ${box.h}`;
+        row.className = "boxRow";
+
+        const label = document.createElement("div");
+        label.className = "boxLabel";
+        label.textContent = `${box.l} x ${box.w} x ${box.h}`;
 
         const del = document.createElement("button");
-        del.textContent = "X";
+        del.className = "deleteBtn";
+        del.textContent = "✕";
 
         del.addEventListener("click", () => {
-            boxes.splice(index, 1);
-
+            boxes = boxes.filter((_, i) => i !== index);
             chrome.storage.local.set({ boxes });
-
             renderBoxes();
         });
 
+        row.appendChild(label);
         row.appendChild(del);
         boxList.appendChild(row);
     });
