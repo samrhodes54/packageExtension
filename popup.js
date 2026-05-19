@@ -118,14 +118,16 @@ document.getElementById("padding").addEventListener("input", (e) => {
     chrome.storage.local.set({ padding });
 });
 
-["length", "width", "height"].forEach(id => {
-    document.getElementById(id).addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-            e.preventDefault();
-            document.getElementById("find").click();
-        }
+function enterToClick(inputIds, buttonId) {
+    inputIds.forEach(id => {
+        document.getElementById(id).addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                document.getElementById(buttonId).click();
+            }
+        });
     });
-});
+}
 
-submitOnEnter(["length", "width", "height"], "find");
-submitOnEnter(["newL", "newW", "newH"], "addBox");
+enterToClick(["length", "width", "height"], "find");
+enterToClick(["newL", "newW", "newH"], "addBox");
