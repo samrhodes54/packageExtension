@@ -61,3 +61,21 @@ function renderBoxes() {
     });
 }
 
+const mainView = document.getElementById("mainView");
+const settingsView = document.getElementById("settingsView");
+
+document.getElementById("goSettings").addEventListener("click", () => {
+    mainView.style.display = "none";
+    settingsView.style.display = "block";
+
+    document.getElementById("goSettings").style.display = "none";
+    document.getElementById("goMain").style.display = "inline";
+});
+
+document.getElementById("goMain").addEventListener("click", () => {
+    mainView.style.display = "block";
+    settingsView.style.display = "none";
+
+    document.getElementById("goSettings").style.display = "inline";
+    document.getElementById("goMain").style.display = "none";
+});
