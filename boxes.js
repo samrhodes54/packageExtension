@@ -1,5 +1,8 @@
-const boxes = [
-  { l: 14, w: 8, h: 8 },
+let boxes = [];
+
+chrome.storage.local.get(["boxes"], (res) => {
+  boxes = res.boxes || [
+    { l: 14, w: 8, h: 8 },
   { l: 13, w: 13, h: 10 },
   { l: 12, w: 12, h: 12 },
   { l: 14, w: 12, h: 8 },
@@ -23,7 +26,10 @@ const boxes = [
   { l: 24, w: 24, h: 12 },
   { l: 24, w: 12, h: 12 },
   { l: 20, w: 16, h: 14 }
-];
+  ];
+
+  renderBoxes();
+});
 
 function findBestBox(item, boxes) {
   const itemDims = [item.l, item.w, item.h].sort((a, b) => a - b);

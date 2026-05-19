@@ -3,54 +3,58 @@ const boxList = document.getElementById("boxList");
 
 // FIND BOX
 document.getElementById("find").addEventListener("click", () => {
-  const l = parseFloat(document.getElementById("length").value);
-  const w = parseFloat(document.getElementById("width").value);
-  const h = parseFloat(document.getElementById("height").value);
+    const l = parseFloat(document.getElementById("length").value);
+    const w = parseFloat(document.getElementById("width").value);
+    const h = parseFloat(document.getElementById("height").value);
 
-  if (isNaN(l) || isNaN(w) || isNaN(h)) return;
+    if (isNaN(l) || isNaN(w) || isNaN(h)) return;
 
-  const bestBox = findBestBox({ l, w, h }, boxes);
+    const bestBox = findBestBox({ l, w, h }, boxes);
 
-  sizeOutput.textContent =
-    bestBox ? `${bestBox.l} x ${bestBox.w} x ${bestBox.h}` : "No fit";
+    sizeOutput.textContent =
+        bestBox ? `${bestBox.l} x ${bestBox.w} x ${bestBox.h}` : "No fit";
 });
 
 // ADD BOX
 document.getElementById("addBox").addEventListener("click", () => {
-  const l = parseFloat(document.getElementById("newL").value);
-  const w = parseFloat(document.getElementById("newW").value);
-  const h = parseFloat(document.getElementById("newH").value);
+    const l = parseFloat(document.getElementById("newL").value);
+    const w = parseFloat(document.getElementById("newW").value);
+    const h = parseFloat(document.getElementById("newH").value);
 
-  if (isNaN(l) || isNaN(w) || isNaN(h)) return;
+    if (isNaN(l) || isNaN(w) || isNaN(h)) return;
 
-  boxes.push({ l, w, h });
+    boxes.push({ l, w, h });
 
-  document.getElementById("newL").value = "";
-  document.getElementById("newW").value = "";
-  document.getElementById("newH").value = "";
+    chrome.storage.local.set({ boxes });
 
-  renderBoxes();
+    renderBoxes();
+
+    document.getElementById("newL").value = "";
+    document.getElementById("newW").value = "";
+    document.getElementById("newH").value = "";
 });
 
 // RENDER
 function renderBoxes() {
-  boxList.innerHTML = "";
+    boxList.innerHTML = "";
 
-  boxes.forEach((box, index) => {
-    const row = document.createElement("div");
-    row.textContent = `${box.l} x ${box.w} x ${box.h}`;
+    boxes.forEach((box, index) => {
+        const row = document.createElement("div");
+        row.textContent = `${box.l} x ${box.w} x ${box.h}`;
 
-    const del = document.createElement("button");
-    del.textContent = "X";
+        const del = document.createElement("button");
+        del.textContent = "X";
 
-    del.addEventListener("click", () => {
-      boxes.splice(index, 1);
-      renderBoxes();
+        del.addEventListener("click", () => {
+            boxes.splice(index, 1);
+
+            chrome.storage.local.set({ boxes });
+
+            renderBoxes();
+        });
+
+        row.appendChild(del);
+        boxList.appendChild(row);
     });
-
-    row.appendChild(del);
-    boxList.appendChild(row);
-  });
 }
 
-renderBoxes();
