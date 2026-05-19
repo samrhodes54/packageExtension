@@ -1,3 +1,8 @@
+body {
+    width: 280px;
+    font-family: Arial, sans-serif;
+}
+
 .dimensionRow {
     display: flex;
     align-items: center;
@@ -6,9 +11,8 @@
 }
 
 .dimensionRow input {
-    width: 50px;
-    padding: 4px;
-    text-align: center;
+    width: 45px;
+    padding: 3px;
 }
 
 .dimensionRow span {
@@ -26,6 +30,12 @@
     width: 60px;
     padding: 4px;
     text-align: center;
+}
+
+.section {
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
 }
 
 #goSettings, #goMain {

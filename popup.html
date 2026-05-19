@@ -29,24 +29,29 @@
 
     <!-- SETTINGS -->
     <div id="settingsView" style="display:none;">
-
-        <h2>Add Box</h2>
-        <div class="dimensionRow">
-            <input id="newL" placeholder="L">
-            <span>x</span>
-            <input id="newW" placeholder="W">
-            <span>x</span>
-            <input id="newH" placeholder="H">
+        <div class="section">
+            <h2>Add Box</h2>
+            <div class="dimensionRow">
+                <input id="newL" placeholder="L">
+                <span>x</span>
+                <input id="newW" placeholder="W">
+                <span>x</span>
+                <input id="newH" placeholder="H">
+            </div>
+            <button id="addBox">Add Box</button>
         </div>
-        <button id="addBox">Add Box</button>
 
-        <h3>Boxes</h3>
-        <div id="boxList"></div>
+        <div class="section">
+            <h3>Saved Boxes</h3>
+            <div id="boxList"></div>
+        </div>
 
-        <h2>Other Settings</h2>
-        <div class="settingRow">
-            <span>Padding</span>
-            <input id="padding" placeholder="in" value="0.5">
+        <div class="section">
+            <h2>Settings</h2>
+            <div class="settingRow">
+                <span>Padding</span>
+                <input id="padding" placeholder="in" value="0.5">
+            </div>
         </div>
     </div>
 
