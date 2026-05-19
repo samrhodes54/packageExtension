@@ -22,7 +22,7 @@ document.getElementById("addBox").addEventListener("click", () => {
     const h = parseFloat(document.getElementById("newH").value);
 
     if (isNaN(l) || isNaN(w) || isNaN(h)) return;
-    if (l<=0 || w<=0 || h<=0) return;
+    if (l <= 0 || w <= 0 || h <= 0) return;
 
     boxes.push({ l, w, h });
 
@@ -88,3 +88,17 @@ document.getElementById("padding").addEventListener("input", (e) => {
     padding = val;
     chrome.storage.local.set({ padding });
 });
+
+function submitOnEnter(inputIds, buttonId) {
+    inputIds.forEach(id => {
+        document.getElementById(id).addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                document.getElementById(buttonId).click();
+            }
+        });
+    });
+}
+
+submitOnEnter(["length", "width", "height"], "find");
+submitOnEnter(["newL", "newW", "newH"], "addBox");
