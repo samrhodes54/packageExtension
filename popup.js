@@ -23,6 +23,7 @@ document.getElementById("addBox").addEventListener("click", () => {
 
     if (isNaN(l) || isNaN(w) || isNaN(h)) return;
     if (l <= 0 || w <= 0 || h <= 0) return;
+    if (boxes.some(b => b.l === l && b.w === w && b.h === h)) return;
 
     boxes.push({ l, w, h });
 
